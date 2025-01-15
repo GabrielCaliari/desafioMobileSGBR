@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface AuthContextData {
@@ -38,9 +38,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUser(null);
   };
 
+
   return (
     <AuthContext.Provider value={{ user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
+};
+
+
+export const useAuth = () => {
+ const context = useContext(AuthContext);
+ if (!context) {
+   throw new Error('useAuth must be used within an AuthProvider');
+ }
+ return context;
 };
