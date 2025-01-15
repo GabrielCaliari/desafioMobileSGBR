@@ -20,7 +20,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null); // Altere o tipo de estado para User ou null
+  const [user, setUser] = useState<User | null>(null);
 
   const signIn = async (username: string, password: string) => {
     try {
@@ -48,7 +48,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUser(null);
   };
 
-  // Verificar se já há um usuário logado quando o aplicativo iniciar
   useEffect(() => {
     const loadUserData = async () => {
       const storedUser = await AsyncStorage.getItem('@user');

@@ -31,11 +31,16 @@ const Home: React.FC = () => {
     navigation.navigate('Model', { brandId });
   };
 
+  const handleSignOut = async () => {
+    await signOut();
+    navigation.navigate('SignIn');
+  };
+
   return (
     <HomeContainer>
       <Header>
         <NameUser>Olá, {user?.name}</NameUser>
-        <ButtonSignOut title="Sair" onPress={signOut} />
+        <ButtonSignOut title="Sair" onPress={handleSignOut} />
       </Header>
       <FlatList
         data={brands}
