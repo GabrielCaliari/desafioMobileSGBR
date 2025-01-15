@@ -22,3 +22,6 @@ export const BrandItem = styled.TouchableOpacity`
   shadow-radius: 3.5px;
   elevation: 5;
 `;
+export const NameUser = styled.Text`
+  font-size: 30px;
+`;

@@ -1,8 +1,14 @@
-import React, { createContext, useState, ReactNode, useContext } from 'react';
+import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+interface User {
+  id: string;
+  name: string;
+  token: string;
+}
+
 interface AuthContextData {
-  user: string | null;
+  user: User | null;
   signIn: (username: string, password: string) => Promise<void>;
   signOut: () => void;
 }
@@ -14,7 +20,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null); // Altere o tipo de estado para User ou null
 
   const signIn = async (username: string, password: string) => {
     try {
@@ -24,13 +30,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         body: JSON.stringify({ user: username, password }),
       });
 
-      if (!response.ok)
-        {throw new Error('Login failed');}
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
 
       const data = await response.json();
-      console.log(data);
       await AsyncStorage.setItem('@user', JSON.stringify(data));
-      setUser(data.user);
+      setUser(data.user); // Assegure-se de que o `data.user` seja um objeto compatível com o tipo `User`
     } catch (error) {
       console.error(error);
     }
@@ -38,9 +44,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signOut = async () => {
     await AsyncStorage.removeItem('@user');
-    setUser(null);
+    setUser(null); // Limpar o estado de user ao deslogar
   };
 
+  // Verificar se já há um usuário logado quando o aplicativo iniciar
+  useEffect(() => {
+    const loadUserData = async () => {
+      const storedUser = await AsyncStorage.getItem('@user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+    };
+
+    loadUserData();
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, signIn, signOut }}>
@@ -49,11 +66,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   );
 };
 
-
 export const useAuth = () => {
- const context = useContext(AuthContext);
- if (!context) {
-   throw new Error('useAuth must be used within an AuthProvider');
- }
- return context;
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };

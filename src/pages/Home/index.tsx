@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../contexts/AuthContext';  // Importando o AuthContext
 import axios from 'axios';
-import { HomeContainer, Header, BrandItem } from './styled';
+import { HomeContainer, Header, BrandItem, NameUser } from './styled';
 
 
 
@@ -34,8 +34,8 @@ const Home: React.FC = () => {
   return (
     <HomeContainer>
       <Header>
-        <Text>Olá, {user}</Text>
-        <Button title="Sair" onPress={signOut} />  {/* Usando o signOut do AuthContext */}
+        <NameUser>Olá, {user?.name}</NameUser>
+        {/* <Button title="Sair" onPress={signOut} />  Usando o signOut do AuthContext */}
       </Header>
       <FlatList
         data={brands}
