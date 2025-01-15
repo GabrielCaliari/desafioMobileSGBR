@@ -31,20 +31,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Login failed');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Login failed');
       }
 
       const data = await response.json();
       await AsyncStorage.setItem('@user', JSON.stringify(data));
-      setUser(data.user); // Assegure-se de que o `data.user` seja um objeto compatível com o tipo `User`
+      setUser(data.user);
     } catch (error) {
-      console.error(error);
+      throw new Error(error.message || 'Erro ao realizar login.');
     }
   };
 
   const signOut = async () => {
     await AsyncStorage.removeItem('@user');
-    setUser(null); // Limpar o estado de user ao deslogar
+    setUser(null);
   };
 
   // Verificar se já há um usuário logado quando o aplicativo iniciar

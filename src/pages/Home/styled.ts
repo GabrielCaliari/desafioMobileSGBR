@@ -25,3 +25,5 @@ export const BrandItem = styled.TouchableOpacity`
 export const NameUser = styled.Text`
   font-size: 30px;
 `;
+
+export const ButtonSignOut = styled.Button``;
