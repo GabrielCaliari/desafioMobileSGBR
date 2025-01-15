@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 import { RouteProp } from '@react-navigation/native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import axios from 'axios';
-import { ModelContainer, ModelItem } from './styled';
+import { ButtonBack, ModelContainer, ModelItem } from './styled';
 
 
 
@@ -14,6 +14,7 @@ interface ModelScreenParams {
 }
 
 const Model: React.FC = () => {
+  const navigation = useNavigation();
   const [models, setModels] = useState<any[]>([]);
   const route = useRoute<RouteProp<any, 'Model'>>();
   const { brandId } = route.params;
@@ -33,6 +34,7 @@ const Model: React.FC = () => {
 
   return (
     <ModelContainer>
+     <ButtonBack onPress={() => navigation.goBack()} title="Voltar"/>
       <FlatList
         data={models}
         keyExtractor={(item) => item.codigo.toString()}

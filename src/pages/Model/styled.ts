@@ -12,3 +12,5 @@ export const ModelItem = styled.View`
   margin: 5px 0;
   border-radius: 5px;
 `;
+
+export const ButtonBack = styled.Button``;
