@@ -22,12 +22,11 @@ const SignIn = () => {
   const onSubmit = async (data: SignInFormData) => {
     try {
       await signIn(data.user, data.password);
-      navigation.navigate("Home");
+      navigation.navigate('Home');
     } catch (error: any) {
-      Alert.alert('Erro de Login', error.message || 'Não foi possível realizar o login.');
+      Alert.alert('Erro de Login', 'Usuário e/ou senha incorreta');
     }
   };
-
   return (
     <Container>
       <Title>Login</Title>
