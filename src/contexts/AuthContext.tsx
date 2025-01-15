@@ -1,5 +1,6 @@
 import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LoadingScreen from '../pages/Loading';
 
 interface User {
   id: string;
@@ -21,6 +22,19 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true); // Adicione o estado de carregamento
+
+  useEffect(() => {
+    const loadUserData = async () => {
+      const storedUser = await AsyncStorage.getItem('@user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser).user);
+      }
+      setLoading(false); // Finaliza o carregamento
+    };
+
+    loadUserData();
+  }, []);
 
   const signIn = async (username: string, password: string) => {
     try {
@@ -48,16 +62,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUser(null);
   };
 
-  useEffect(() => {
-    const loadUserData = async () => {
-      const storedUser = await AsyncStorage.getItem('@user');
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-      }
-    };
-
-    loadUserData();
-  }, []);
+  if (loading) {
+    return <LoadingScreen />; // Mostra uma tela de carregamento enquanto restaura o estado
+  }
 
   return (
     <AuthContext.Provider value={{ user, signIn, signOut }}>
