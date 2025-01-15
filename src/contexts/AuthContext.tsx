@@ -24,8 +24,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         body: JSON.stringify({ user: username, password }),
       });
 
-      if (!response.ok) throw new Error('Login failed');
+      if (!response.ok)
+        {throw new Error('Login failed');}
+
       const data = await response.json();
+      console.log(data);
       await AsyncStorage.setItem('@user', JSON.stringify(data));
       setUser(data.user);
     } catch (error) {

@@ -3,6 +3,7 @@ import { Alert } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import {ButtonText, Container, ErrorMessage, Input, InputContainer, SubmitButton, Title, } from "./styled";
 import { AuthContext } from '../../contexts/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 
 interface SignInFormData {
   user: string;
@@ -11,6 +12,7 @@ interface SignInFormData {
 
 const SignIn = () => {
   const { signIn } = useContext(AuthContext);
+  const navigation = useNavigation()
   const {
     control,
     handleSubmit,
@@ -20,6 +22,7 @@ const SignIn = () => {
   const onSubmit = async (data: SignInFormData) => {
     try {
       await signIn(data.user, data.password);
+      navigation.navigate("Home");
     } catch (error: any) {
       Alert.alert('Erro de Login', error.message || 'Não foi possível realizar o login.');
     }
@@ -63,7 +66,7 @@ const SignIn = () => {
           </InputContainer>
         )}
       />
-      <SubmitButton onPress={handleSubmit(onSubmit)}>
+      <SubmitButton onPress={handleSubmit(onSubmit)} >
         <ButtonText>Entrar</ButtonText>
       </SubmitButton>
     </Container>
