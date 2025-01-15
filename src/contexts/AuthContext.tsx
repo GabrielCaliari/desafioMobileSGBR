@@ -18,7 +18,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signIn = async (username: string, password: string) => {
     try {
-      // Simulação de requisição à API de login
       const response = await fetch('https://test-api-y04b.onrender.com/signIn', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
