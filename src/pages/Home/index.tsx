@@ -32,8 +32,17 @@ const Home: React.FC = () => {
   };
 
   const handleSignOut = async () => {
-    await signOut();
-    navigation.navigate('SignIn');
+    try {
+      await Promise.all([
+        signOut(),
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'SignIn' }],
+        }),
+      ]);
+    } catch (error) {
+      console.error('Erro ao sair:', error);
+    }
   };
 
   return (
