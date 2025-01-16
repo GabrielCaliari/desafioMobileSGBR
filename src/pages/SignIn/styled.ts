@@ -31,15 +31,15 @@ export const InputContainer = styled.View`
   margin: 20px 20px 0px 20px;
 `;
 
-export const Input = styled.TextInput<{ hasError: boolean }>`
-  width: 100%;
-  padding: 12px;
-  border-width: 1px;
-  border-color: ${(props) => (props.hasError ? '#ff4d4d' : '#ddd')};
-  border-radius: 8px; /* Bordas levemente arredondadas */
-  background-color: #fff;
-  font-size: 16px; /* Fonte mais consistente */
+export const Input = styled.TextInput<{ hasError?: boolean }>`
+  border: 1px solid ${(props) => (props.hasError ? 'red' : '#ccc')};
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+  color: #333;
 `;
+
 
 export const ErrorMessage = styled.Text`
   color: #ff4d4d;
@@ -87,3 +87,9 @@ export const TOIcons = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 `;
+
+export const Logo = styled.Image`
+  width: 52px;
+  height: 52px;
+`;
+

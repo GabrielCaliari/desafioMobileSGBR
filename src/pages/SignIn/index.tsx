@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Alert, Text } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Alert, Text, TextInputProps } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import {
   ButtonText,
@@ -15,20 +15,26 @@ import {
   LinkTO,
   TOIcons,
   ViewTO,
+  Logo,
 } from './styled';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
-import { MaterialIcons, FontAwesome, Ionicons } from '@expo/vector-icons';
+import { MaterialIcons, FontAwesome, Ionicons, Feather } from '@expo/vector-icons';
 
 interface SignInFormData {
   user: string;
   password: string;
 }
 
+interface InputProps extends TextInputProps {
+  secureTextEntry?: boolean;
+}
+
 const SignIn = () => {
   const { signIn } = useContext(AuthContext);
   const navigation = useNavigation();
+  const [currentSecure, setCurrentSecure] = useState(true);
   const {
     control,
     handleSubmit,
@@ -44,15 +50,18 @@ const SignIn = () => {
     }
   };
 
+  const handleOnPressEye = () => {
+    setCurrentSecure(current => !current);
+  };
+
   return (
     <Container>
     <Header>
-      <Text>Vai ser uma logo</Text>
+       <Logo source={require('../../assets/sgbrlogo.png')} />
     </Header>
 
     <Animatable.View
       animation="fadeInUp"
-      duration={600}
       style={{
         flex: 1,
         width: '100%',
@@ -90,12 +99,23 @@ const SignIn = () => {
           <InputContainer >
             <Input
               placeholder="Senha"
-              secureTextEntry
+              secureTextEntry={currentSecure}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
               hasError={!!errors.password}
             />
+             <Feather
+            style={{
+              position: "absolute",
+              right: 14,
+              top: 22,
+             }}
+            onPress={handleOnPressEye}
+            name={currentSecure ? 'eye-off' : 'eye'}
+            size={20}
+            color="black"
+          />
             {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
           </InputContainer>
         )}
