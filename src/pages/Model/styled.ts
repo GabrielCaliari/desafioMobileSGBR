@@ -19,3 +19,16 @@ export const ModelItem = styled.View`
 export const Back = styled.TouchableOpacity`
   padding: 30px 0 10px 10px;
 `;
+
+
+export const ModelView = styled.View`
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 15px
+`;
+
+export const ModelText = styled.Text`
+  font-size: 20px;
+  padding: 15px 80px 0 0;
+`;

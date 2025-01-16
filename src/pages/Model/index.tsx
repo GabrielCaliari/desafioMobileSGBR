@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 import { RouteProp } from '@react-navigation/native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import axios from 'axios';
-import { Back,   ModelContainer, ModelItem } from './styled';
+import { Back, ModelContainer, ModelItem, ModelText, ModelView } from './styled';
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -39,9 +39,17 @@ const Model: React.FC = () => {
 
   return (
     <ModelContainer>
+
+
+        <ModelView>
         <Back onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back" size={30} color="black" />
         </Back>
+
+
+          <ModelText>Lista dos modelos</ModelText>
+        </ModelView>
+
       <FlatList
         data={models}
         keyExtractor={(item) => item.codigo.toString()}

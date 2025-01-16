@@ -3,8 +3,8 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../contexts/AuthContext';
 import axios from 'axios';
-import { HomeContainer, Header, BrandItem, NameUser, ButtonSignOut, UserAvatar, UserWrapper, UserInfo, SearchInput, SearchButton, SearchWrapper } from './styled';
-import { Ionicons, FontAwesome} from '@expo/vector-icons'; // Para o ícone de logout
+import { HomeContainer, Header, BrandItem, NameUser, ButtonSignOut, UserAvatar, UserWrapper, UserInfo, SearchInput, SearchButton, SearchWrapper, TextBrands, ViewBrands } from './styled';
+import {FontAwesome} from '@expo/vector-icons';
 
 const Home: React.FC = () => {
   const [brands, setBrands] = useState<any[]>([]);
@@ -75,27 +75,30 @@ const Home: React.FC = () => {
         <UserWrapper>
           <UserInfo>
             <UserAvatar source={require('../../assets/avatar.png')} />
-            <NameUser>Olá, {user?.name}</NameUser>
+            <NameUser>  Olá, {user?.name}</NameUser>
           </UserInfo>
           <ButtonSignOut onPress={handleSignOut}>
-            <Ionicons name="log-out-outline" size={30} color="#000" />
+             <FontAwesome name="sign-out" size={24} color="black" />
           </ButtonSignOut>
         </UserWrapper>
       </Header>
 
+     <ViewBrands>
+     <TextBrands>Lista de marcas</TextBrands>
       <SearchWrapper>
       <SearchInput
-    placeholder="Pesquise por marca"
-    value={searchText}
-    onChangeText={handleSearchTextChange}
-    />
-
+        placeholder="Pesquise por marca"
+        value={searchText}
+        onChangeText={handleSearchTextChange}
+        />
       </SearchWrapper>
+     </ViewBrands>
+
 
       <FlatList
-  data={filteredBrands}
-  keyExtractor={(item) => item.codigo.toString()}
-  renderItem={({ item }) => (
+      data={filteredBrands}
+      keyExtractor={(item) => item.codigo.toString()}
+      renderItem={({ item }) => (
     <BrandItem onPress={() => handleBrandPress(item.codigo)}>
       <Text>{item.nome}</Text>
     </BrandItem>

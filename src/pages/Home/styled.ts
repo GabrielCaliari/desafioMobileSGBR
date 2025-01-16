@@ -56,26 +56,28 @@ export const BrandItem = styled.TouchableOpacity`
 `;
 
 export const SearchInput = styled.TextInput`
-  width: 90%;
+  width: 80%;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ddd;
   background-color: #fff;
-`;
-
-export const SearchButton = styled.Button`
-  background-color: #007bff;  /* Cor do botão */
-  color: white;  /* Cor do texto */
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  width: 100%;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const SearchWrapper = styled.View`
   flex-direction: row;
+  padding-left: 55px;
+
+`;
+
+export const ViewBrands = styled.View`
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-top: 10px;
-  padding: 0 15px;
+  padding-bottom: 15px;
+`;
+
+export const TextBrands = styled.Text`
+  font-size: 17px;
 `;
