@@ -13,4 +13,9 @@ export const ModelItem = styled.View`
   border-radius: 5px;
 `;
 
-export const ButtonBack = styled.Button``;
+
+
+
+export const Back = styled.TouchableOpacity`
+  padding: 30px 0 10px 10px;
+`;
