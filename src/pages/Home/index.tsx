@@ -1,9 +1,8 @@
 // screens/Home.tsx
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, FlatList } from 'react-native';
-import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
-import { useAuth } from '../../contexts/AuthContext';  // Importando o AuthContext
+import { useAuth } from '../../contexts/AuthContext';
 import axios from 'axios';
 import { HomeContainer, Header, BrandItem, NameUser, ButtonSignOut } from './styled';
 

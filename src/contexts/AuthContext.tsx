@@ -22,7 +22,7 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true); // Adicione o estado de carregamento
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadUserData = async () => {
@@ -30,7 +30,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (storedUser) {
         setUser(JSON.parse(storedUser).user);
       }
-      setLoading(false); // Finaliza o carregamento
+      setLoading(false);
     };
 
     loadUserData();
@@ -63,7 +63,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   if (loading) {
-    return <LoadingScreen />; // Mostra uma tela de carregamento enquanto restaura o estado
+    return <LoadingScreen />;
   }
 
   return (
