@@ -16,11 +16,11 @@ const AppRoutes = () => {
     const checkAuth = async () => {
       try {
         const userData = await AsyncStorage.getItem('@user');
-        setIsAuthenticated(!!userData); // Define como autenticado se o usuário existir
+        setIsAuthenticated(!!userData);
       } catch (error) {
         console.error('Erro ao verificar autenticação:', error);
       } finally {
-        setIsLoading(false); // Certifica-se de que o carregamento termine
+        setIsLoading(false);
       }
     };
 
@@ -28,7 +28,6 @@ const AppRoutes = () => {
   }, []);
 
   if (isLoading) {
-    // Exibe um indicador de carregamento enquanto verifica a autenticação
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" color="#0000ff" />

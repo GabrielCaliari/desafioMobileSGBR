@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import styled from 'styled-components/native';
 
-// Estilos para a LoadingScreen
 const LoadingContainer = styled.View`
   flex: 1;
   justify-content: center;

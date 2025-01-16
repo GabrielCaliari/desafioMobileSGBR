@@ -57,7 +57,7 @@ const SignIn = () => {
   return (
     <Container>
     <Header>
-       <Logo source={require('../../assets/sgbrlogo.png')} />
+       <Logo  source={require('../../assets/sgbrlogo.png')} />
     </Header>
 
     <Animatable.View

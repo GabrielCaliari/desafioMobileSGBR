@@ -1,4 +1,3 @@
-// screens/Model.tsx
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';

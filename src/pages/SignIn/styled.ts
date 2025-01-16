@@ -52,7 +52,7 @@ export const SubmitButton = styled.TouchableOpacity`
   padding: 15px;
   border-radius: 25px;
   justify-content: center;
-  width: 90%; /* Mesmo tamanho dos inputs */
+  width: 90%;
   align-items: center;
   margin: 30px 0 0 20px;
 `;
