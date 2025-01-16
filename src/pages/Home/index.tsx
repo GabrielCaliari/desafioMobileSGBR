@@ -1,15 +1,15 @@
-// screens/Home.tsx
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, FlatList } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../contexts/AuthContext';
 import axios from 'axios';
-import { HomeContainer, Header, BrandItem, NameUser, ButtonSignOut } from './styled';
-
-
+import { HomeContainer, Header, BrandItem, NameUser, ButtonSignOut, UserAvatar, UserWrapper, UserInfo, SearchInput, SearchButton, SearchWrapper } from './styled';
+import { Ionicons, FontAwesome} from '@expo/vector-icons'; // Para o ícone de logout
 
 const Home: React.FC = () => {
   const [brands, setBrands] = useState<any[]>([]);
+  const [filteredBrands, setFilteredBrands] = useState<any[]>([]);
+  const [searchText, setSearchText] = useState<string>('');
   const { user, signOut } = useAuth();
   const navigation = useNavigation();
 
@@ -26,6 +26,18 @@ const Home: React.FC = () => {
     fetchBrands();
   }, []);
 
+  useEffect(() => {
+    if (searchText === '') {
+      setFilteredBrands(brands);
+    } else {
+      setFilteredBrands(
+        brands.filter((brand) =>
+          brand.nome.toLowerCase().includes(searchText.toLowerCase())
+        )
+      );
+    }
+  }, [searchText, brands]);
+
   const handleBrandPress = (brandId: number) => {
     navigation.navigate('Model', { brandId });
   };
@@ -39,22 +51,56 @@ const Home: React.FC = () => {
     }
   };
 
+  const handleSearch = () => {
+    if (searchText.trim() === '') {
+      setFilteredBrands(brands);
+    } else {
+      setFilteredBrands(
+        brands.filter((brand) =>
+          brand.nome.toLowerCase().includes(searchText.toLowerCase())
+        )
+      );
+    }
+  };
+
+  const handleSearchTextChange = (text: string) => {
+    setSearchText(text);
+
+  };
+
 
   return (
     <HomeContainer>
       <Header>
-        <NameUser>Olá, {user?.name}</NameUser>
-        <ButtonSignOut title="Sair" onPress={handleSignOut} />
+        <UserWrapper>
+          <UserInfo>
+            <UserAvatar source={require('../../assets/avatar.png')} />
+            <NameUser>Olá, {user?.name}</NameUser>
+          </UserInfo>
+          <ButtonSignOut onPress={handleSignOut}>
+            <Ionicons name="log-out-outline" size={30} color="#000" />
+          </ButtonSignOut>
+        </UserWrapper>
       </Header>
+
+      <SearchWrapper>
+      <SearchInput
+    placeholder="Pesquise por marca"
+    value={searchText}
+    onChangeText={handleSearchTextChange}
+    />
+
+      </SearchWrapper>
+
       <FlatList
-        data={brands}
-        keyExtractor={(item) => item.codigo.toString()}
-        renderItem={({ item }) => (
-          <BrandItem onPress={() => handleBrandPress(item.codigo)}>
-            <Text>{item.nome}</Text>
-          </BrandItem>
-        )}
-      />
+  data={filteredBrands}
+  keyExtractor={(item) => item.codigo.toString()}
+  renderItem={({ item }) => (
+    <BrandItem onPress={() => handleBrandPress(item.codigo)}>
+      <Text>{item.nome}</Text>
+    </BrandItem>
+  )}
+/>
     </HomeContainer>
   );
 };
