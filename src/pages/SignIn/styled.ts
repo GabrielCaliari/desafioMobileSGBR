@@ -8,8 +8,8 @@ export const Container = styled.View`
   `;
 
 export const Header = styled.View`
-    margin-top: 30%;
-    margin-bottom: 25%;
+    margin-top: 20%;
+
     padding-horizontal: 5%;
   `;
 
@@ -89,7 +89,10 @@ export const TOIcons = styled.TouchableOpacity`
 `;
 
 export const Logo = styled.Image`
-  width: 52px;
-  height: 52px;
+  width: 170px;
+  height: 170px;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 15px;
 `;
 
