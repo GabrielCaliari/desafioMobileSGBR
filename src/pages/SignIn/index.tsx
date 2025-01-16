@@ -1,9 +1,25 @@
 import React, { useContext } from 'react';
-import { Alert } from 'react-native';
+import { Alert, Text } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
-import {ButtonText, Container, ErrorMessage, Input, InputContainer, SubmitButton, Title, } from "./styled";
+import {
+  ButtonText,
+  Container,
+  ErrorMessage,
+  Input,
+  InputContainer,
+  SubmitButton,
+  Title,
+  Header,
+  ViewText,
+  LinkText,
+  LinkTO,
+  TOIcons,
+  ViewTO,
+} from './styled';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigation } from '@react-navigation/native';
+import * as Animatable from 'react-native-animatable';
+import { MaterialIcons, FontAwesome, Ionicons } from '@expo/vector-icons';
 
 interface SignInFormData {
   user: string;
@@ -12,7 +28,7 @@ interface SignInFormData {
 
 const SignIn = () => {
   const { signIn } = useContext(AuthContext);
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const {
     control,
     handleSubmit,
@@ -27,9 +43,28 @@ const SignIn = () => {
       Alert.alert('Erro de Login', 'Usuário e/ou senha incorreta');
     }
   };
+
   return (
     <Container>
+    <Header>
+      <Text>Vai ser uma logo</Text>
+    </Header>
+
+    <Animatable.View
+      animation="fadeInUp"
+      duration={600}
+      style={{
+        flex: 1,
+        width: '100%',
+        borderTopLeftRadius: 80,
+        backgroundColor: '#fff',
+        paddingHorizontal: 20,
+
+      }}
+    >
+      <ViewText>
       <Title>Login</Title>
+      </ViewText>
       <Controller
         control={control}
         name="user"
@@ -52,7 +87,7 @@ const SignIn = () => {
         name="password"
         rules={{ required: 'Senha é obrigatória.' }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <InputContainer>
+          <InputContainer >
             <Input
               placeholder="Senha"
               secureTextEntry
@@ -65,12 +100,34 @@ const SignIn = () => {
           </InputContainer>
         )}
       />
-      <SubmitButton onPress={handleSubmit(onSubmit)} >
+      <SubmitButton onPress={handleSubmit(onSubmit)}>
         <ButtonText>Entrar</ButtonText>
       </SubmitButton>
-    </Container>
+
+    <ViewTO>
+        <TOIcons>
+          <Ionicons name="logo-apple" size={24} color="#fff" />
+        </TOIcons>
+
+
+
+        <TOIcons>
+          <FontAwesome name="google" size={24} color="#fff" />
+        </TOIcons>
+
+
+        <TOIcons>
+         <FontAwesome name="facebook" size={24} color="#fff" />
+        </TOIcons>
+
+    </ViewTO>
+
+      <LinkTO>
+      <LinkText>Não possui uma conta? Registre-se agora</LinkText>
+      </LinkTO>
+    </Animatable.View>
+  </Container>
   );
 };
 
 export default SignIn;
-
