@@ -8,6 +8,8 @@ Tratamento de erros para exibir mensagens como "Usuário ou senha incorreta".
 Tela de Home:
 Exibição personalizada do nome do usuário via Context API.
 Pesquisa dinâmica de marcas para facilitar a navegação do usuário.
+Funcionalidade de Persistência de Sessão: Implementei uma funcionalidade que mantém o usuário logado no aplicativo mesmo após o encerramento ou atualização do app. Utilize AsyncStorage em conjunto com Context API para armazenar os dados de autenticação do usuário e verificá-los no carregamento do aplicativo. Isso melhora a usabilidade, evitando que o usuário precise realizar o login repetidamente.
+
 
 Tela de Model:
 Integração com API externa para listar os modelos de carros.
