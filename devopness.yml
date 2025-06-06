@@ -1,0 +1,8 @@
+name: desafio-mobile-sgbr
+type: mobile
+framework: expo
+build:
+  command: npm run build
+  output: dist
+deploy:
+  command: npm run deploy 
